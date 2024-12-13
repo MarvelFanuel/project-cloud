@@ -161,7 +161,7 @@ class AdminController extends Controller
             ]);
             
             // Menambahkan email admin ke subscription SNS jika belum ada
-            $this->addEmailToSubscription($snsClient, $admin->email);
+            $this->addEmailToSubscription($snsClient, $user->email);
 
             // Mengembalikan respon sukses
             return response()->json([
