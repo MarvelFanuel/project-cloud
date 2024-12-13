@@ -64,13 +64,15 @@
 
             <form action="{{ route('admin.auth') }}" class="contents" method="POST">
                 @csrf
-                <input type="email" name="email" id="email" placeholder="Email" class="bg-gray-200 w-[200px]">
-                <input type="password" name="password" id="password" placeholder="Password" class="bg-gray-200 w-[200px]">
+                <div class="flex flex-col gap-4">
+                <input class="rounded w-[400px]" type="email" name="email" id="email" placeholder="Email" class="bg-gray-200 w-[200px]">
+                <input class="rounded w-[400px]" type="password" name="password" id="password" placeholder="Password" class="bg-gray-200 w-[200px]">
                 <button class="border-white border-2 rounded-full btn-7 w-[400px] h-[55px]">
                     <span class="text-2xl text-white font-semibold">
                         Submit
                     </span>
                 </button>
+            </div>  
             </form>
         </div>
     </section>
