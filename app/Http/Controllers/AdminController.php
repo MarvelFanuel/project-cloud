@@ -7,6 +7,7 @@ use App\Models\Division;
 use App\Models\User;
 use App\Utils\HttpResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class AdminController extends Controller
@@ -17,6 +18,22 @@ class AdminController extends Controller
         $data['title'] = 'Login';
         return view('admin.login', $data);
     }
+    public function authManual(Request $request)
+    {
+        $admin = Admin::where('email', $request->email)->first();
+
+        if (($admin && Hash::check($request->password, $admin->password))) {
+            session()->put('id', $admin->id);
+            session()->put('email', $admin->email);
+            session()->put('name', $admin->name);
+            session()->put('nrp', substr($admin->email, 0, 9));
+
+            return redirect()->route('admin.index')->with('success', 'Login berhasil!');
+        } else {
+            return redirect()->route('admin.login')->with('error', 'Email atau password salah!');
+        }
+    }
+
     public function index()
     {
         $data['title'] = 'Login';
@@ -73,32 +90,31 @@ class AdminController extends Controller
     }
 
     public function validateInterview(Request $request)
-{
-    try {
-        // Validasi ID
-        $request->validate([
-            'id' => 'required|exists:users,id',
-        ]);
+    {
+        try {
+            // Validasi ID
+            $request->validate([
+                'id' => 'required|exists:users,id',
+            ]);
 
-        // Mencari user berdasarkan ID
-        $user = User::findOrFail($request->id);
+            // Mencari user berdasarkan ID
+            $user = User::findOrFail($request->id);
 
-        // Update phase ke 3
-        $user->update(['phase' => 3]);
+            // Update phase ke 3
+            $user->update(['phase' => 3]);
 
 
-        // Mengembalikan respon sukses
-        return response()->json([
-            'success' => true,
-            'message' => 'User has been successfully validated.',
-        ]);
-    } catch (\Exception $e) {
-        // Jika ada error, kembalikan respon gagal
-        return response()->json([
-            'success' => false,
-            'message' => 'Failed to validate user. Error: ' . $e->getMessage(),
-        ], 500);
+            // Mengembalikan respon sukses
+            return response()->json([
+                'success' => true,
+                'message' => 'User has been successfully validated.',
+            ]);
+        } catch (\Exception $e) {
+            // Jika ada error, kembalikan respon gagal
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to validate user. Error: ' . $e->getMessage(),
+            ], 500);
+        }
     }
-}
-
 }

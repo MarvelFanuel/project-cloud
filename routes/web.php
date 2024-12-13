@@ -12,8 +12,9 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/login', [MainController::class, 'login'])->name('login');
 
-Route::get('/auth', [UserController::class, 'googleAuth'])->name('auth');
+Route::post('/auth', [UserController::class, 'authManual'])->name('auth');
 Route::get('/processLogin', [UserController::class, 'processLogin'])->name('processLogin');
 
 Route::middleware('phaseCheck:0')->group(function () {
@@ -41,7 +42,7 @@ Route::middleware('phaseCheck:4')->group(function () {
 Route::get('/logout', [MainController::class, 'logout'])->name('logout');
 
 Route::get('admin/login', [AdminController::class, 'login'])->name('admin.login');
-Route::get('admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
+Route::post('admin/auth', [AdminController::class, 'authManual'])->name('admin.auth');
 Route::get('admin/processLogin', [AdminController::class, 'processLogin'])->name('admin.processLogin');
 
 Route::prefix('admin')->name('admin.')->middleware(AdminMiddleware::class)->group(function () {

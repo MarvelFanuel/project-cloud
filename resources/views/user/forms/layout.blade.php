@@ -128,6 +128,26 @@
             })
         </script>
     @endif
+    @if (session()->has('success'))
+        <script>
+            Swal.fire({
+                title: "Success",
+                icon: "success",
+                text: "{{ session('success') }}",
+            })
+        </script>
+    @endif
+    @if (session()->has('error'))
+        <script>
+            Swal.fire({
+                title: "Error",
+                icon: "error",
+                text: "{{ session('error') }}",
+            })
+        </script>
+    @endif
+
+
     <div class="navigation py-6 px-12 w-full h-auto flex items-center max-md:justify-between max-sm:px-6">
         <div class="flex flex-col w-fit">
             <a href="{{ route('logout') }}" class="contents">

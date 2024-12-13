@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('email')->unique();
             $table->string('name');
+            $table->string('password');
             $table->uuid('division_id');
             $table->foreign('division_id')->references('id')->on('divisions');
             $table->timestamps();

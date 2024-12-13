@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Utils\HttpResponse;
 use App\Utils\HttpResponseCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
@@ -20,6 +21,40 @@ class UserController extends Controller
     {
         return Socialite::driver('google')->redirect();
     }
+
+
+    public function authManual(Request $request)
+    {
+        if (!str_ends_with($request->email, '@john.petra.ac.id')) {
+            return redirect()->route('index')->with('error', 'Please use your @john.petra.ac.id email');
+        }
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            $phase = $user->phase;
+            $request->session()->put('id', $user->id);
+        } else {
+            $phase = 0;
+        }
+        session()->put('nrp', substr($request->email, 0, 9));
+        session()->put('email', $request->email);
+        session()->put('name', $request->name);
+        session()->put('phase', $phase);
+
+        switch ($phase) {
+            case 0:
+                return redirect()->route('biodata');
+            case 1:
+                return redirect()->route('files');
+            case 2:
+                return redirect()->route('schedule');
+            case 3:
+            case 4:
+                return redirect()->route('project');
+            default:
+                return redirect()->route('index');
+        }
+    }
+
 
     public function processLogin(Request $request)
     {

@@ -208,6 +208,7 @@
             })
         </script>
     @endif
+    
     @yield('content')
 
 </body>

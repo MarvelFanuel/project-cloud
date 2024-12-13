@@ -61,14 +61,17 @@
                 <h1 class="mix-blend-difference text-white font-bold text-5xl w-[500px] text-center max-sm:text-2xl">
                     Admin Page</h1>
             </div>
-            <a href="{{ route('admin.auth') }}" class="contents">
+
+            <form action="{{ route('admin.auth') }}" class="contents" method="POST">
+                @csrf
+                <input type="email" name="email" id="email" placeholder="Email" class="bg-gray-200 w-[200px]">
+                <input type="password" name="password" id="password" placeholder="Password" class="bg-gray-200 w-[200px]">
                 <button class="border-white border-2 rounded-full btn-7 w-[400px] h-[55px]">
                     <span class="text-2xl text-white font-semibold">
-                        Sign In with PCU Email
+                        Submit
                     </span>
                 </button>
-            </a>
-
+            </form>
         </div>
     </section>
 @endsection

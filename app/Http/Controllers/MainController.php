@@ -16,6 +16,12 @@ class MainController extends Controller
         $data['title'] = 'Kepanitiaan CloudComp';
         return view('user.home', $data);
     }
+
+    public function login()
+    {
+        $data['title'] = 'Kepanitiaan CloudComp';
+        return view('user.login', $data);
+    }
     public function biodata()
     {
         $data['divisions'] = Division::all();
