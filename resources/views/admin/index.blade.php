@@ -336,19 +336,19 @@
                 document.getElementById('detail-portfolio').innerText = portfolio;
 
                 const ktm = this.getAttribute('data-ktm');
-                document.getElementById('detail-ktm').src = `https://laravelcloudproject.s3.us-east-1.amazonaws.com/uploads/${ktm}`;
+                document.getElementById('detail-ktm').src = `{{ asset('storage') }}/${ktm}`;
 
                 const grade = this.getAttribute('data-grade');
-                document.getElementById('detail-grade').src = `https://laravelcloudproject.s3.us-east-1.amazonaws.com/uploads/${grade}`;
+                document.getElementById('detail-grade').src = `{{ asset('storage') }}/${grade}`;
 
                 const skkk = this.getAttribute('data-skkk');
-                document.getElementById('detail-skkk').src = `https://laravelcloudproject.s3.us-east-1.amazonaws.com/uploads/${skkk}`;
+                document.getElementById('detail-skkk').src = `{{ asset('storage') }}/${skkk}`;
 
                 const photo = this.getAttribute('data-photo');
-                document.getElementById('detail-photo').src = `https://laravelcloudproject.s3.us-east-1.amazonaws.com/uploads/${photo}`;
+                document.getElementById('detail-photo').src = `{{ asset('storage') }}/${photo}`;
 
                 const cheats = this.getAttribute('data-cheats');
-                document.getElementById('detail-cheats').src = `https://laravelcloudproject.s3.us-east-1.amazonaws.com/uploads/${cheats}`;
+                document.getElementById('detail-cheats').src = `{{ asset('storage') }}/${cheats}`;
 
                 const acceptance = this.getAttribute('data-acceptance');
                 document.getElementById('detail-acceptance').innerText = acceptance;
