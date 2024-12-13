@@ -70,7 +70,7 @@
                         <label for="ktm" class="text-white mb-1 text-lg font-semibold max-lg:!text-base">Scan KTM / Profile Petra Mobile</label>
                         <input type="file" class="form-control" id="ktm" name="ktm" accept="image/*" />
                     </div>
-                    <button type="button" class="bg-warning text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('ktm')">UPLOAD</button>
+                    <button type="button" class="bg-yellow-600 text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('ktm')">UPLOAD</button>
                 </div>
 
                 <div class="flex gap-x-4 items-end w-full">
@@ -78,7 +78,7 @@
                         <label for="grade" class="text-white mb-1 text-lg font-semibold max-lg:!text-base">Transkrip KHS</label>
                         <input type="file" class="form-control" id="grade" name="grade" accept="image/*" />
                     </div>
-                    <button type="button" class="bg-warning text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('grade')">UPLOAD</button>
+                    <button type="button" class="bg-yellow-600 text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('grade')">UPLOAD</button>
                 </div>
 
                 <div class="flex gap-x-4 items-end w-full">
@@ -86,7 +86,7 @@
                         <label for="skkk" class="text-white mb-1 text-lg font-semibold max-lg:!text-base">Transkrip SKKK</label>
                         <input type="file" class="form-control" id="skkk" name="skkk" accept="image/*" />
                     </div>
-                    <button type="button" class="bg-warning text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('skkk')">UPLOAD</button>
+                    <button type="button" class="bg-yellow-600 text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('skkk')">UPLOAD</button>
                 </div>
 
                 <div class="flex gap-x-4 items-end w-full">
@@ -94,7 +94,7 @@
                         <label for="cheats" class="text-white mb-1 text-lg font-semibold max-lg:!text-base">Bukti Kecurangan</label>
                         <input type="file" class="form-control" id="cheats" name="cheats" accept="image/*" />
                     </div>
-                    <button type="button" class="bg-warning text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('cheats')">UPLOAD</button>
+                    <button type="button" class="bg-yellow-600 text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('cheats')">UPLOAD</button>
                 </div>
 
                 <div class="flex gap-x-4 items-end w-full">
@@ -102,7 +102,7 @@
                         <label for="photo" class="text-white mb-1 text-lg font-semibold max-lg:!text-base">Pas Foto 3x4</label>
                         <input type="file" class="form-control" id="photo" name="photo" accept="image/*" />
                     </div>
-                    <button type="button" class="bg-warning text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('photo')">UPLOAD</button>
+                    <button type="button" class="bg-yellow-600 text-white h-[39.93px] max-xl:h-[35.83px] max-lg:text-xs w-fit px-8 rounded text-sm font-medium tracking-wider" onclick="upload('photo')">UPLOAD</button>
                 </div>
 
                 <div class="w-full col-span-2 max-xl:col-span-1 mt-3">
@@ -145,7 +145,7 @@
             }).then(res => res.json())
                 .then(data => {
                     if (data.success) {
-                        document.querySelector(`button[onclick="upload('${slug}')"]`).classList.remove('bg-warning');
+                        document.querySelector(`button[onclick="upload('${slug}')"]`).classList.remove('bg-yellow-600');
                         document.querySelector(`button[onclick="upload('${slug}')"]`).classList.add('bg-success');
                         document.querySelector(`button[onclick="upload('${slug}')"]`).textContent = 'UPLOADED';
                         document.querySelector(`button[onclick="upload('${slug}')"]`).setAttribute('disabled', '');
