@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class SNSController extends Controller
@@ -25,7 +26,7 @@ class SNSController extends Controller
                          ->subject('Notifikasi Kelulusan Interview');
                 });
 
-                \Log::info('Pesan SNS diterima dan email telah dikirim: ' . $message);
+                Log::info('Pesan SNS diterima dan email telah dikirim: ' . $message);
             }
 
             return response('Notification processed and email sent.', 200);

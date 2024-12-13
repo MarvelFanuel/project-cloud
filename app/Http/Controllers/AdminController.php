@@ -6,8 +6,10 @@ use App\Models\Admin;
 use App\Models\Division;
 use App\Models\User;
 use App\Utils\HttpResponse;
+use Aws\Sns\SnsClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class AdminController extends Controller
@@ -89,6 +91,37 @@ class AdminController extends Controller
         }
     }
 
+    private function addEmailToSubscription(SnsClient $snsClient, string $email)
+    {
+        try {
+            $result = $snsClient->listSubscriptionsByTopic([
+                'TopicArn' => env('AWS_SNS_TOPIC_ARN'),
+            ]);
+
+
+            $existingSubscriptions = $result['Subscriptions'];
+            $emailExists = false;
+
+            foreach ($existingSubscriptions as $subscription) {
+                if ($subscription['Endpoint'] === $email) {
+                    $emailExists = true;
+                    break;
+                }
+            }
+
+
+            if (!$emailExists) {
+                $snsClient->subscribe([
+                    'TopicArn' => env('AWS_SNS_TOPIC_ARN'),
+                    'Protocol' => 'email',
+                    'Endpoint' => $email,
+                ]);
+            }
+        } catch (\Exception $e) {
+            Log::error('Failed to add email to SNS subscription: ' . $e->getMessage());
+        }
+    }
+
     public function validateInterview(Request $request)
     {
         try {
@@ -103,6 +136,32 @@ class AdminController extends Controller
             // Update phase ke 3
             $user->update(['phase' => 3]);
 
+
+            // Kirim SNS
+            $admin = Admin::where('email', session('email'))->first();
+
+            $snsClient = new SnsClient([
+                'credentials' => [
+                    'key' => env('AWS_ACCESS_KEY_ID'),
+                    'secret' => env('AWS_SECRET_ACCESS_KEY'),
+                    'token' => env('AWS_SESSION_TOKEN')
+                ],
+                'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+                'version' => 'latest'
+            ]);
+
+            $message = sprintf(
+                "Your interview is confirmed as done.\n\nCheck your projects at http://3.86.195.173/",
+            );
+
+            $snsClient->publish([
+                'TopicArn' => env('AWS_SNS_TOPIC_ARN'),
+                'Message' => $message,
+                'Subject' => 'New Job Application',
+            ]);
+            
+            // Menambahkan email admin ke subscription SNS jika belum ada
+            $this->addEmailToSubscription($snsClient, $admin->email);
 
             // Mengembalikan respon sukses
             return response()->json([
