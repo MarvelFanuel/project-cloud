@@ -20,6 +20,7 @@ class S3Controller extends Controller
             try {
                 // Save file to S3
                 $path = $file->storePubliclyAs('uploads', $fileName, 's3');
+                $path = $file->storePubliclyAs('uploads/'. $slug, $fileName, 'public');
                 $fileUrl = Storage::disk('s3')->url($path);
     
                 return response()->json([
