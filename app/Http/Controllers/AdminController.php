@@ -157,7 +157,7 @@ class AdminController extends Controller
             $snsClient->publish([
                 'TopicArn' => env('AWS_SNS_TOPIC_ARN'),
                 'Message' => $message,
-                'Subject' => 'New Job Application',
+                'Subject' => 'Interview Confirmation',
             ]);
             
             // Menambahkan email admin ke subscription SNS jika belum ada
