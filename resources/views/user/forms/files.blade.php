@@ -146,7 +146,7 @@
                 .then(data => {
                     if (data.success) {
                         document.querySelector(`button[onclick="upload('${slug}')"]`).classList.remove('bg-yellow-600');
-                        document.querySelector(`button[onclick="upload('${slug}')"]`).classList.add('bg-success');
+                        document.querySelector(`button[onclick="upload('${slug}')"]`).classList.add('bg-green-600');
                         document.querySelector(`button[onclick="upload('${slug}')"]`).textContent = 'UPLOADED';
                         document.querySelector(`button[onclick="upload('${slug}')"]`).setAttribute('disabled', '');
 
